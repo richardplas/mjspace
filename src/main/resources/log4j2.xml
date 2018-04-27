@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="defaultLoggingFile">factor-calculate-test</Property>
+        <Property name="defaultLoggingPath">${sys:user.home}/data/logs/factor-calculate-test</Property>
+        <Property name="loggingFile">${env:LOGGING_FILE:-strategy-factor-calculate}</Property>
+        <Property name="loggingPath">${env:LOGGING_PATH:-/Users/lijiaze/data/logs/factor-calculate-test}</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout charset="UTF-8">
+                <pattern>%d{ISO8601}{GMT+8} %highlight{%p} %style{%c{1.} [%t] %X{X-B3-TraceId} %m}{bold,green}%n
+                </pattern>
+            </PatternLayout>
+        </Console>
+        <RollingRandomAccessFile
+                name="RollingRandomAccessFile"
+                fileName="${loggingPath}/${loggingFile}.log"
+                filePattern="${loggingPath}/$${date:yyyy-MM}/${loggingFile}-%d{yyyy-MM-dd}-%i.log"
+                immediateFlush="true" append="true" bufferSize="1024">
+            <PatternLayout charset="UTF-8">
+                <Pattern>%d{ISO8601}{GMT+8} %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="512 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${loggingPath}" maxDepth="2">
+                    <IfFileName glob="*/${loggingFile}-*.log">
+                        <IfLastModified age="1d">
+                            <IfAny>
+                                <IfAccumulatedFileSize exceeds="2 GB"/>
+                            </IfAny>
+                        </IfLastModified>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <!-- levelactiveProfile{env:LOGGING_LEVEL_:-DEBUG}" will override spring-boot's logging.level.${loggerName}: ${logLevel} -->
+    <Loggers>
+        <Root includeLocation="false" level="info">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>

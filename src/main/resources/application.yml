@@ -1,0 +1,182 @@
+# Logging configuration
+logging:
+  file: ${LOGGING_FILE:factor-calculate-test}.log
+  path: ${LOGGING_PATH:${user.home}/data/logs/factor-calculate-test}
+  level:
+    org.springframework:
+      data: info
+      security: info
+
+spring.profiles.active: dev
+
+---
+spring.profiles: dev
+
+
+# mysql
+#spring.datasource:
+#  url: jdbc:mysql://192.168.15.122:3306/muji_strategy_produce?useUnicode=true&characterEncoding=utf-8
+#  username: root
+#  password: 111111
+#  allowMultiQueries: true
+#  type: com.alibaba.druid.pool.DruidDataSource
+#  driver-class-name: com.mysql.jdbc.Driver
+
+#spring.sqlliteDataSource:
+#  driver-class-name: org.sqlite.JDBC
+#  url: jdbc:sqlite:/Users/lijiaze/Downloads/local-market-data.db
+#  username: spec
+#  password: spec
+#  type: com.alibaba.druid.pool.DruidDataSource
+
+spring.dubbo:
+  application.name: consumer
+  registry.address: zookeeper://192.168.15.197:2181?backup=192.168.15.197:2182,192.168.15.197:2183
+  scan: com.td.spec.marketdata.api
+  monitor.protocol: registry
+
+#spring.redis:
+#    password: redis@td!!
+#    sentinel:
+#      master: redis-master
+#      nodes: 192.168.15.172:26379
+#    pool:
+#      maxTotal: 1024
+#      maxIdle: 200
+#      minIdle: 50
+#      maxWait: 1000
+#      timeout: 10000
+#      testOnBorrow: true
+#      testOnReturn: true
+
+#dubbo:
+#  application.name: provider
+#  registry.address: zookeeper://192.168.15.197:2181?backup=192.168.15.197:2182,192.168.15.197:2183
+#  registry.protocol: zookeeper
+---
+spring.profiles: test
+
+
+# mysql
+#spring.datasource:
+#  driver-class-name: com.mysql.jdbc.Driver
+#  url: jdbc:mysql://192.168.15.150:3306/muji_strategy_produce?useSSL=false
+#  username: muji
+#  password: mujidatabases
+#  type: com.alibaba.druid.pool.DruidDataSource
+#  testOnBorrow: true
+#  validationQuery: SELECT 1
+
+#spring.sqlliteDataSource:
+#  driver-class-name: org.sqlite.JDBC
+#  url: jdbc:sqlite:/dev/shm/local-market-data.db
+#  username: spec
+#  password: spec
+#  type: com.alibaba.druid.pool.DruidDataSource
+
+spring.dubbo:
+  application.name: provider
+  registry.address: zookeeper://192.168.15.172:2181
+  scan: com.td.spec.marketdata.api
+  monitor.protocol: registry
+
+#spring.redis:
+#  password: rds@td!!
+#  sentinel:
+#    master: redis-master
+#    nodes: 192.168.15.172:26379 # all sentinel ip:port
+#  pool:
+#    maxTotal: 1024
+#    maxIdle: 200
+#    maxWait: 1000
+#    timeout: 10000
+#    testOnBorrow: true
+#    testOnReturn: true
+
+#dubbo:
+#  application.name: provider
+#  registry.address: 192.168.15.172:2181
+#  registry.protocol: zookeeper
+---
+spring.profiles: stage
+
+# mysql
+#spring.datasource:
+#  url: jdbc:mysql://192.168.15.122:3306/muji_strategy_produce?useUnicode=true&characterEncoding=utf-8
+#  username: root
+#  password: 111111
+#  type: com.alibaba.druid.pool.DruidDataSource
+#  driver-class-name: com.mysql.jdbc.Driver
+
+#spring.sqlliteDataSource:
+#  driver-class-name: org.sqlite.JDBC
+#  url: jdbc:sqlite:/Users/lijiaze/Downloads/local-market-data.db
+#  username: spec
+#  password: spec
+#  type: com.alibaba.druid.pool.DruidDataSource
+
+spring.dubbo:
+  application.name: consumer
+  registry.address: zookeeper://192.168.15.197:2181?backup=192.168.15.197:2182,192.168.15.197:2183
+  scan: com.td.spec.marketdata.api
+  monitor.protocol: registry
+
+#spring.redis:
+#    password: rds@td!!
+#    sentinel:
+#      master: redis-master
+#      nodes: 47.92.51.33:26379
+#    pool:
+#      maxTotal: 1024
+#      maxIdle: 200
+#      maxWait: 1000
+#      timeout: 10000
+#      testOnBorrow: true
+#      testOnReturn: true
+
+
+---
+spring.profiles: production
+
+
+# mysql
+#spring.datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://172.26.82.106:3306/muji_strategy_produce?useSSL=false
+#    username: produce
+#    password: d3wn]2JvW+_c
+#    testOnBorrow: true
+#    validationQuery: SELECT 1
+
+#spring.sqlliteDataSource:
+#  driver-class-name: org.sqlite.JDBC
+#  url: jdbc:sqlite:/dev/shm/local-market-data.db
+#  username: spec
+#  password: spec
+#  type: com.alibaba.druid.pool.DruidDataSource
+
+spring.dubbo:
+  application.name: consumer
+  registry.address: zookeeper://172.26.82.105:2181
+  scan: com.td.spec.marketdata.api
+  monitor.protocol: registry
+
+#spring.redis:
+#    password: SPEC0028
+#    sentinel:
+#      master: redis-master
+#      nodes: 172.26.82.105:26379,172.26.82.108:26379,172.26.82.109:26379
+#    pool:
+#      maxTotal: 1024
+#      maxIdle: 200
+#      maxWait: 1000
+#      timeout: 10000
+#      testOnBorrow: true
+#      testOnReturn: true
+
+#dubbo:
+#  application.name: provider
+#  registry.address: 172.26.82.105:2181
+#  registry.protocol: zookeeper
+
+---
